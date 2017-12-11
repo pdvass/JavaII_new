@@ -24,6 +24,7 @@ class MyFrame extends JFrame {
     setResizable(false);
 
     initComponent();
+    initEvent();
   }
 
   private void initComponent(){
@@ -47,5 +48,46 @@ class MyFrame extends JFrame {
 
     add(txtInput);
     add(txtResult);
+  }
+
+  private void initEvent(){
+
+    this.addWindowListener(new WindowAdapter() {
+      public void windowClosing(WindowEvent e){
+       System.exit(1);
+      }
+    });
+
+    btnExit.addActionListener(new ActionListener() {
+      public void actionPerformed(ActionEvent e) {
+        btnExitClick(e);
+      }
+    });
+
+    btnSpellcheck.addActionListener(new ActionListener() {
+      public void actionPerformed(ActionEvent e) {
+        btnSpellcheckClick(e);
+      }
+    });
+  }
+
+  private void btnExitClick(ActionEvent evt){
+    System.exit(0);
+  }
+
+  private void btnSpellcheckClick(ActionEvent evt){
+    String x = "";
+    try{
+      x = txtInput.getText();
+
+      txtResult.append(x);
+
+    }catch(Exception e){
+      System.out.println(e);
+      JOptionPane.showMessageDialog(null,
+          e.toString(),
+          "Error",
+          JOptionPane.ERROR_MESSAGE);
+    }
   }
 }
